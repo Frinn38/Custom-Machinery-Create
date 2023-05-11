@@ -1,5 +1,6 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "me.shedaniel.unified-publishing"
 }
 
 architectury {
@@ -101,5 +102,48 @@ jar {
 components.java {
     withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
         skip()
+    }
+}
+
+unifiedPublishing {
+    project {
+        displayName = "[Forge]Custom-Machinery-Create-${project.minecraft_version}-${project.mod_version}"
+        releaseType = "release"
+        changelog = rootProject.file("CHANGELOG.md").text
+        gameVersions = ["1.18.2"]
+        gameLoaders = ["forge"]
+        mainPublication remapJar
+
+        var CURSE_API_KEY = System.getenv("CURSEFORGE")
+        if (CURSE_API_KEY != null) {
+            curseforge {
+                token = CURSE_API_KEY
+                id = "860747"
+                gameVersions.addAll "Java 17"
+                relations {
+                    depends "architectury-api"
+                    depends "cloth-config"
+                    depends "custom-machinery"
+                    depends "create"
+                    optional "crafttweaker"
+                    optional "kubejs"
+                }
+            }
+        }
+
+        var MODRINTH_TOKEN = System.getenv("MODRINTH")
+        if (MODRINTH_TOKEN != null) {
+            modrinth {
+                token = MODRINTH_TOKEN
+                id = "NHh2cWu8"
+                relations {
+                    depends "architectury-api"
+                    depends "cloth-config"
+                    depends "custom-machinery"
+                    depends "create"
+                    optional "kubejs"
+                }
+            }
+        }
     }
 }

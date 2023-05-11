@@ -3,6 +3,7 @@ plugins {
     id "dev.architectury.loom" version "1.0-SNAPSHOT" apply false
     id "io.github.juuxel.loom-quiltflower" version "1.+" apply false // Quiltflower, a better decompiler
     id "io.github.p03w.machete" version "1.+" // automatic jar compressing on build
+    id "me.shedaniel.unified-publishing" version "0.1.+" apply false
 }
 
 architectury {
@@ -54,13 +55,9 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = rootProject.archives_base_name
-    group = rootProject.maven_group
-
-    // Formats the mod version to include the loader, Minecraft version, and build number (if present)
-    // example: 1.0.0+fabric-1.18.2-100
-    String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
-    version = "${mod_version}+${project.name}-${minecraft_version}" + (buildNumber != null ? "-${buildNumber}" : "")
+    archivesBaseName = "${project.archives_base_name}-${project.name}"
+    version = "${project.minecraft_version}-${project.mod_version}"
+    group = project.maven_group
 
     repositories {
         maven {
@@ -87,9 +84,53 @@ allprojects {
     java {
         withSourcesJar()
     }
+    if(project.path != ':common' && project.path != ':') {
+        publishing {
+            publications {
+                maven(MavenPublication) {
+                    groupId = project.group
+                    artifactId = project.archivesBaseName
+                    version = project.version
+                    from components.java
 
-    machete {
-        // disable machete locally for faster builds
-        enabled = buildNumber != null
+                    pom {
+                        name = project.mod_name
+                        description = project.mod_description
+                        packaging = 'jar'
+                        version = project.version
+                        scm {
+                            url = project.github
+                        }
+                        issueManagement {
+                            system = 'github'
+                            url = project.issues
+                        }
+                        licenses {
+                            license {
+                                name = project.license
+                                distribution = 'repo'
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = project.author
+                                name = project.author
+                                roles = ['developper']
+                            }
+                        }
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    name = 'maven'
+                    url = 'https://maven.frinn.fr/repository/maven/'
+                    credentials {
+                        username = 'frinn'
+                        password = System.getenv('MAVEN_PASSWORD')
+                    }
+                }
+            }
+        }
     }
 }
