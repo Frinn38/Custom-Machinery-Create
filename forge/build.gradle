@@ -1,0 +1,105 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    forge {
+        mixinConfigs = [
+                "custommachinerycreate.mixins.json"
+        ]
+    }
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+repositories {
+    // mavens for Forge-exclusives
+    maven { url = "https://maven.theillusivec4.top/" } // Curios
+    maven { // Create Forge and Registrate Forge
+        url = "https://maven.tterrag.com/"
+        content {
+            includeGroup("com.tterrag.registrate")
+            includeGroup("com.simibubi.create")
+        }
+    }
+}
+
+dependencies {
+    forge("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
+    modApi("dev.architectury:architectury-forge:${project.architectury_version}")
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+    // Create and its dependencies
+    modImplementation("com.simibubi.create:create-${project.minecraft_version}:${project.create_forge_version}:slim") { transitive = false }
+    modImplementation("com.tterrag.registrate:Registrate:${project.registrate_forge_version}")
+    modImplementation("com.jozufozu.flywheel:flywheel-forge-${project.flywheel_forge_minecraft_version}:${project.flywheel_forge_version}")
+
+    // JEI 10
+    modLocalRuntime modCompileOnly("mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}")
+    modLocalRuntime modCompileOnly("mezz.jei:jei-${project.minecraft_version}-forge-api:${project.jei_version}")
+    modLocalRuntime("mezz.jei:jei-${project.minecraft_version}-forge:${project.jei_version}") {transitive = false}
+
+    // Custom Machinery
+    modLocalRuntime "frinn.custommachinery:CustomMachinery-forge:${project.minecraft_version}-${project.custommachinery_version}"
+
+    //KubeJS
+    modLocalRuntime modCompileOnly("dev.latvian.mods:kubejs-forge:${project.kubejs_version}")
+
+    //Crafttweaker
+    modLocalRuntime modCompileOnly("com.blamejared.crafttweaker:CraftTweaker-forge-${project.minecraft_version}:${project.ct_version}")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "modid": project.modid,
+                "mod_version": project.mod_version,
+                "mod_name": project.mod_name,
+                "mod_description": project.mod_description,
+                "author": project.author,
+                "issues": project.issues,
+                "license": project.license,
+                "icon": project.icon,
+                "minecraft_version": project.minecraft_version,
+                "architectury_version": project.architectury_version,
+                "create_forge_version": project.create_forge_version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+}
+
+jar {
+    classifier "dev"
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}

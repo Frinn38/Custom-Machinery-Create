@@ -1,0 +1,8 @@
+{
+  "custommachinerycreate.requirement.contraption.info.speed.input": "Required speed: %s RPM",
+  "custommachinerycreate.requirement.contraption.info.speed.output": "Output speed: %s RPM",
+  "custommachinerycreate.requirement.contraption.info.stress.input": "Stress impact: %sx RPM",
+  "custommachinerycreate.requirement.contraption.info.stress.output": "Stress capacity: %sx RPM",
+  "custommachinerycreate.requirement.contraption.error.speed.input": "Not enough rotational speed: %s RMP required but %s RPM found",
+  "custommachinerycreate.requirement.contraption.error.stress.input": "This machine is overstressed !"
+}
