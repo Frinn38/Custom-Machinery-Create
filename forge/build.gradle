@@ -44,7 +44,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     // Create and its dependencies
-    modImplementation("com.simibubi.create:create-${project.minecraft_version}:${project.create_forge_version}:slim") { transitive = false }
+    modImplementation("com.simibubi.create:create-${project.minecraft_version}:${project.create_version}-${project.create_forge_version}:slim") { transitive = false }
     modImplementation("com.tterrag.registrate:Registrate:${project.registrate_forge_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${project.flywheel_forge_minecraft_version}:${project.flywheel_forge_version}")
 
@@ -77,7 +77,8 @@ processResources {
                 "icon": project.icon,
                 "minecraft_version": project.minecraft_version,
                 "architectury_version": project.architectury_version,
-                "create_forge_version": project.create_forge_version
+                "custommachinery_version": project.custommachinery_version,
+                "create_forge_version": project.create_version
     }
 }
 

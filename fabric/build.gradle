@@ -36,7 +36,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
 
     // Create - dependencies are added transitively
-    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
+    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${project.create_version}-${create_fabric_version}")
 
     // JEI
     modLocalRuntime modCompileOnly("mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}")
@@ -74,7 +74,7 @@ processResources {
                 "minecraft_version": project.minecraft_version,
                 "architectury_version": project.architectury_version,
                 "custommachinery_version": project.custommachinery_version,
-                "create_fabric_version": project.create_fabric_version
+                "create_fabric_version": project.create_version
     }
 }
 

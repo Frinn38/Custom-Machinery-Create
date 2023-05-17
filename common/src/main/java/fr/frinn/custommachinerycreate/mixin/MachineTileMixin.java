@@ -21,7 +21,8 @@ import java.util.List;
 @Mixin(MachineTile.class)
 public abstract class MachineTileMixin implements IHaveGoggleInformation, IHaveHoveringInformation, IPartialSafeNBT, ISpecialBlockEntityItemRequirement {
 
-    @Shadow public abstract ICustomMachine getMachine();
+    @Shadow(remap = false)
+    public abstract ICustomMachine getMachine();
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {

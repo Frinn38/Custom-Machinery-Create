@@ -35,6 +35,13 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.custommachinerycreate]]
+modId = "custommachinery"
+mandatory = true
+versionRange = "[${custommachinery_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.custommachinerycreate]]
 modId = "create"
 mandatory = true
 versionRange = "[${create_forge_version},)"
