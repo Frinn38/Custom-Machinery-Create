@@ -1,7 +1,7 @@
 package fr.frinn.custommachinerycreate.mixin;
 
-import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import fr.frinn.custommachinery.api.machine.MachineTile;
 import fr.frinn.custommachinerycreate.Registration;
 import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(GeneratingKineticTileEntity.class)
-public class GeneratingKineticTileEntityMixin {
+@Mixin(GeneratingKineticBlockEntity.class)
+public class GeneratingKineticBlockEntityMixin {
 
     @Redirect(method = "setSource", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"))
     private BlockEntity cmcreate$replaceMachineTileByFakeTile(Level level, BlockPos pos) {
@@ -23,7 +23,7 @@ public class GeneratingKineticTileEntityMixin {
     private static BlockEntity getFakeTile(Level level, BlockPos pos) {
         BlockEntity be = level.getBlockEntity(pos);
         if(be instanceof MachineTile machine) {
-            KineticTileEntity fakeTile = machine.getComponentManager()
+            KineticBlockEntity fakeTile = machine.getComponentManager()
                     .getComponent(Registration.CONTRAPTION_MACHINE_COMPONENT.get())
                     .map(ContraptionMachineComponent::getFakeTile)
                     .orElse(null);

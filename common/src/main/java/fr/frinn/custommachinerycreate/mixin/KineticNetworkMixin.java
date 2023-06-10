@@ -1,7 +1,7 @@
 package fr.frinn.custommachinerycreate.mixin;
 
-import com.simibubi.create.content.contraptions.KineticNetwork;
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
+import com.simibubi.create.content.kinetics.KineticNetwork;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import fr.frinn.custommachinery.api.machine.MachineTile;
 import fr.frinn.custommachinerycreate.Registration;
 import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
@@ -28,7 +28,7 @@ public class KineticNetworkMixin {
     private static BlockEntity getFakeTile(Level level, BlockPos pos) {
         BlockEntity be = level.getBlockEntity(pos);
         if(be instanceof MachineTile machine) {
-            KineticTileEntity fakeTile = machine.getComponentManager()
+            KineticBlockEntity fakeTile = machine.getComponentManager()
                     .getComponent(Registration.CONTRAPTION_MACHINE_COMPONENT.get())
                     .map(ContraptionMachineComponent::getFakeTile)
                     .orElse(null);

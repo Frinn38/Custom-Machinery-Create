@@ -7,7 +7,7 @@
   ],
   "mixins": [
     "CustomMachineBlockMixin",
-    "GeneratingKineticTileEntityMixin",
+    "GeneratingKineticBlockEntityMixin",
     "KineticNetworkMixin",
     "KineticTileEntityMixin",
     "KubeJSIntegrationMixin",

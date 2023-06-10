@@ -1,6 +1,6 @@
 package fr.frinn.custommachinerycreate.util;
 
-import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
 import fr.frinn.custommachinerycreate.network.SUpdateFakeKineticTilePacket;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class FakeGeneratingKineticTileEntity extends GeneratingKineticTileEntity {
+public class FakeGeneratingKineticBlockEntity extends GeneratingKineticBlockEntity {
 
     private final ContraptionMachineComponent component;
 
@@ -17,7 +17,7 @@ public class FakeGeneratingKineticTileEntity extends GeneratingKineticTileEntity
     private float stressCapacity;
     private float stressImpact;
 
-    public FakeGeneratingKineticTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ContraptionMachineComponent component) {
+    public FakeGeneratingKineticBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ContraptionMachineComponent component) {
         super(type, pos, state);
         this.component = component;
     }

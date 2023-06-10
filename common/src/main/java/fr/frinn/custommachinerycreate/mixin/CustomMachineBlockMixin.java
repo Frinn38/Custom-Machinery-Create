@@ -1,6 +1,6 @@
 package fr.frinn.custommachinerycreate.mixin;
 
-import com.simibubi.create.content.contraptions.base.IRotate;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import fr.frinn.custommachinery.api.machine.MachineTile;
 import fr.frinn.custommachinery.common.init.CustomMachineBlock;
 import fr.frinn.custommachinerycreate.Registration;

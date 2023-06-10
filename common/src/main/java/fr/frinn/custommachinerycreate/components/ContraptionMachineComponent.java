@@ -11,14 +11,15 @@ import fr.frinn.custommachinery.api.machine.MachineStatus;
 import fr.frinn.custommachinery.impl.component.AbstractMachineComponent;
 import fr.frinn.custommachinery.impl.component.config.SideConfig;
 import fr.frinn.custommachinerycreate.Registration;
-import fr.frinn.custommachinerycreate.util.FakeGeneratingKineticTileEntity;
+import fr.frinn.custommachinerycreate.util.FakeGeneratingKineticBlockEntity;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class ContraptionMachineComponent extends AbstractMachineComponent implements ITickableComponent, ISideConfigComponent {
 
     private final float baseStressImpact;
     private final SideConfig config;
-    private final FakeGeneratingKineticTileEntity fakeTile;
+    private final FakeGeneratingKineticBlockEntity fakeTile;
 
     private float speed;
     private float stressCapacity;
@@ -33,13 +34,14 @@ public class ContraptionMachineComponent extends AbstractMachineComponent implem
         super(manager, ComponentIOMode.BOTH);
         this.baseStressImpact = baseStressImpact;
         this.config = config.build(this);
-        this.fakeTile = new FakeGeneratingKineticTileEntity(manager.getTile().getType(), manager.getTile().getBlockPos(), manager.getTile().getBlockState(), this);
+        BlockEntity be = (BlockEntity)manager.getTile();
+        this.fakeTile = new FakeGeneratingKineticBlockEntity(be.getType(), be.getBlockPos(), be.getBlockState(), this);
         if(manager.getLevel() != null)
             this.fakeTile.setLevel(manager.getLevel());
         this.fakeTile.reActivateSource = true;
     }
 
-    public FakeGeneratingKineticTileEntity getFakeTile() {
+    public FakeGeneratingKineticBlockEntity getFakeTile() {
         return this.fakeTile;
     }
 

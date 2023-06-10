@@ -1,13 +1,12 @@
 package fr.frinn.custommachinerycreate.client;
 
-import com.simibubi.create.content.contraptions.base.IRotate.StressImpact;
-import com.simibubi.create.content.contraptions.goggles.GogglesItem;
-import com.simibubi.create.foundation.config.AllConfigs;
-import com.simibubi.create.foundation.config.CKinetics;
-import com.simibubi.create.foundation.item.ItemDescription;
-import com.simibubi.create.foundation.item.ItemDescription.Palette;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
+import com.simibubi.create.content.kinetics.base.IRotate.StressImpact;
+import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
+import com.simibubi.create.infrastructure.config.AllConfigs;
+import com.simibubi.create.infrastructure.config.CKinetics;
 import dev.architectury.event.events.client.ClientTooltipEvent;
 import fr.frinn.custommachinery.common.init.CustomMachineItem;
 import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
@@ -34,7 +33,7 @@ public class ClientHandler {
     }
 
     private static void addKineticStatsTooltip(float impact, List<Component> list) {
-        CKinetics config = AllConfigs.SERVER.kinetics;
+        CKinetics config = AllConfigs.server().kinetics;
         LangBuilder rpmUnit = Lang.translate("generic.unit.rpm");
         boolean hasGoggles = GogglesItem.isWearingGoggles(Minecraft.getInstance().player);
 
@@ -45,7 +44,7 @@ public class ClientHandler {
         StressImpact impactId = impact >= config.highStressImpact.get() ? StressImpact.HIGH
                 : (impact >= config.mediumStressImpact.get() ? StressImpact.MEDIUM : StressImpact.LOW);
         LangBuilder builder = Lang.builder()
-                .add(Lang.text(ItemDescription.makeProgressBar(3, impactId.ordinal() + 1))
+                .add(Lang.text(TooltipHelper.makeProgressBar(3, impactId.ordinal() + 1))
                         .style(impactId.getAbsoluteColor()));
 
         if (hasGoggles)
