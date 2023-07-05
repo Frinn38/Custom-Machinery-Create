@@ -27,7 +27,6 @@
     "minecraft": ">=${minecraft_version}",
     "architectury": ">=${architectury_version}",
     "custommachinery": ">=${custommachinery_version}",
-    "create": ">=${create_fabric_version}",
     "java": ">=17"
   }
 }

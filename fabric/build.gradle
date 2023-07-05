@@ -36,7 +36,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
 
     // Create - dependencies are added transitively
-    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${project.create_version}-${create_fabric_version}")
+    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${project.create_version}${create_fabric_version}")
 
     // JEI
     modLocalRuntime modCompileOnly("mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}")
@@ -73,8 +73,7 @@ processResources {
                 "icon": project.icon,
                 "minecraft_version": project.minecraft_version,
                 "architectury_version": project.architectury_version,
-                "custommachinery_version": project.custommachinery_version,
-                "create_fabric_version": project.create_version
+                "custommachinery_version": project.custommachinery_version
     }
 }
 
@@ -108,7 +107,7 @@ unifiedPublishing {
         releaseType = "release"
         changelog = rootProject.file("CHANGELOG.md").text
         gameVersions = ["1.18.2"]
-        gameLoaders = ["forge"]
+        gameLoaders = ["fabric"]
         mainPublication remapJar
 
         var CURSE_API_KEY = System.getenv("CURSEFORGE")
@@ -121,7 +120,7 @@ unifiedPublishing {
                     depends "architectury-api"
                     depends "cloth-config"
                     depends "custom-machinery"
-                    depends "create"
+                    depends "create-fabric"
                     optional "crafttweaker"
                     optional "kubejs"
                 }
@@ -137,8 +136,9 @@ unifiedPublishing {
                     depends "architectury-api"
                     depends "cloth-config"
                     depends "custom-machinery"
-                    depends "create"
+                    depends "create-fabric"
                     optional "kubejs"
+                    optional "crafttweaker"
                 }
             }
         }
