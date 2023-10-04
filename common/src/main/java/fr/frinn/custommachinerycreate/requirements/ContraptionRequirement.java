@@ -14,7 +14,7 @@ import fr.frinn.custommachinery.api.requirement.RequirementType;
 import fr.frinn.custommachinery.impl.requirement.AbstractRequirement;
 import fr.frinn.custommachinerycreate.Registration;
 import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 import java.util.Locale;
 
@@ -81,9 +81,9 @@ public class ContraptionRequirement extends AbstractRequirement<ContraptionMachi
 
         float speed = (float)context.getModifiedValue(this.speed, this, null);
         if(Math.abs(component.getFakeTile().getTheoreticalSpeed()) < speed)
-            return CraftingResult.error(new TranslatableComponent("custommachinerycreate.requirement.contraption.error.speed.input", speed, Math.abs(component.getFakeTile().getTheoreticalSpeed())));
+            return CraftingResult.error(Component.translatable("custommachinerycreate.requirement.contraption.error.speed.input", speed, Math.abs(component.getFakeTile().getTheoreticalSpeed())));
         else if(component.getFakeTile().isOverStressed())
-            return CraftingResult.error(new TranslatableComponent("custommachinerycreate.requirement.contraption.error.stress.input"));
+            return CraftingResult.error(Component.translatable("custommachinerycreate.requirement.contraption.error.stress.input"));
 
         return CraftingResult.success();
     }
@@ -92,8 +92,8 @@ public class ContraptionRequirement extends AbstractRequirement<ContraptionMachi
     public void getDisplayInfo(IDisplayInfo info) {
         info.setItemIcon(AllBlocks.COGWHEEL.asStack());
         String mode = getMode().name().toLowerCase(Locale.ROOT);
-        info.addTooltip(new TranslatableComponent("custommachinerycreate.requirement.contraption.info.speed." + mode, this.speed));
+        info.addTooltip(Component.translatable("custommachinerycreate.requirement.contraption.info.speed." + mode, this.speed));
         if(this.stress != 0)
-            info.addTooltip(new TranslatableComponent("custommachinerycreate.requirement.contraption.info.stress." + mode, this.stress));
+            info.addTooltip(Component.translatable("custommachinerycreate.requirement.contraption.info.stress." + mode, this.stress));
     }
 }

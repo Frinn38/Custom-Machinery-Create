@@ -75,6 +75,13 @@ allprojects {
                 includeGroup "dev.ftb.mods"
             }
         }
+        maven {
+            name = "ldtteam Maven"
+            url = "https://ldtteam.jfrog.io/ldtteam/modding/"
+            content {
+                includeGroup "com.communi-suggestu.saecularia-caudices"
+            }
+        }
     }
 
     tasks.withType(JavaCompile) {

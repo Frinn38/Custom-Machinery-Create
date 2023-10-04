@@ -12,4 +12,4 @@ include("common")
 include("fabric")
 include("forge")
 
-rootProject.name = "Custom-Machinery-Create"
+rootProject.name = "Custom-Machinery-Create-1.19"
