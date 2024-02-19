@@ -108,7 +108,9 @@ public class ContraptionMachineComponent extends AbstractMachineComponent implem
 
     @Override
     public void onRemoved() {
-        this.fakeTile.remove();
+        if(getManager().getTile().isUnloaded())
+            this.fakeTile.onChunkUnloaded();
+        this.fakeTile.setRemoved();
     }
 
     public static class Template implements IMachineComponentTemplate<ContraptionMachineComponent> {
