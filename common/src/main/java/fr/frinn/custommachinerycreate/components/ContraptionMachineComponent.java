@@ -34,7 +34,7 @@ public class ContraptionMachineComponent extends AbstractMachineComponent implem
         super(manager, ComponentIOMode.BOTH);
         this.baseStressImpact = baseStressImpact;
         this.config = config.build(this);
-        BlockEntity be = (BlockEntity)manager.getTile();
+        BlockEntity be = manager.getTile();
         this.fakeTile = new FakeGeneratingKineticBlockEntity(be.getType(), be.getBlockPos(), be.getBlockState(), this);
         if(manager.getLevel() != null)
             this.fakeTile.setLevel(manager.getLevel());

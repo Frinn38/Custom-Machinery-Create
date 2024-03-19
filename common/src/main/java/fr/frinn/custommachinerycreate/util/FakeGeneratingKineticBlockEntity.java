@@ -22,6 +22,13 @@ public class FakeGeneratingKineticBlockEntity extends GeneratingKineticBlockEnti
         this.component = component;
     }
 
+    @Override
+    public void initialize() {
+        super.initialize();
+        if(this.generatedSpeed == 0 && this.stressCapacity == 0 && this.stressImpact == 0)
+            remove();
+    }
+
     public void setGeneratedSpeed(float generatedSpeed) {
         this.generatedSpeed = generatedSpeed;
     }
