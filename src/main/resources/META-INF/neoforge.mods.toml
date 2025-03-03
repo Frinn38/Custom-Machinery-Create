@@ -1,0 +1,61 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${license}"
+issueTrackerURL="${issues}"
+
+[[mods]]
+modId="custommachinerycreate"
+version="${mod_version}"
+displayName="${mod_name}"
+
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+
+logoFile="${icon}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+# The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
+[[mixins]]
+config="${mod_id}.mixins.json"
+
+# The [[accessTransformers]] block allows you to declare where your AT file is.
+# If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
+
+# The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
+
+[[dependencies.custommachinerycreate]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.custommachinerycreate]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.custommachinerycreate]]
+    modId = "custommachinery"
+    mandatory = true
+    versionRange = "[${cm_version},)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.custommachinerycreate]]
+    modId = "create"
+    mandatory = true
+    versionRange = "[${create_version},)"
+    ordering = "NONE"
+    side = "BOTH"
+
+# Features are specific properties of the game environment, that you may want to declare you require. This example declares
+# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
+# stop your mod loading on the server for example.
+#[features.${mod_id}]
+#openGLVersion="[3.2,)"

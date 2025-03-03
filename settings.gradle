@@ -1,15 +1,14 @@
 pluginManagement {
     repositories {
-        maven { url = "https://maven.fabricmc.net/" }
-        maven { url = "https://maven.architectury.dev/" }
-        maven { url = "https://maven.minecraftforge.net/" }
-        maven { url = "https://maven.quiltmc.org/repository/release" }
+        mavenLocal()
         gradlePluginPortal()
+        maven { url = 'https://maven.neoforged.net/releases' }
+        maven { url "https://maven.architectury.dev/" } //Unified publishing
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
 
-rootProject.name = "Custom-Machinery-Create-1.19"
+rootProject.name = "Custom-Machinery-Create-1.21.1"

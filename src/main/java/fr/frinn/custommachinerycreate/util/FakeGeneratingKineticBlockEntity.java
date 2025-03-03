@@ -1,0 +1,70 @@
+package fr.frinn.custommachinerycreate.util;
+
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import fr.frinn.custommachinerycreate.components.ContraptionMachineComponent;
+import fr.frinn.custommachinerycreate.network.SUpdateFakeKineticTilePacket;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+public class FakeGeneratingKineticBlockEntity extends GeneratingKineticBlockEntity {
+
+    private final ContraptionMachineComponent component;
+
+    private float generatedSpeed;
+    private float stressCapacity;
+    private float stressImpact;
+
+    public FakeGeneratingKineticBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ContraptionMachineComponent component) {
+        super(type, pos, state);
+        this.component = component;
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        if(this.generatedSpeed == 0 && this.stressCapacity == 0 && this.stressImpact == 0)
+            remove();
+    }
+
+    public void setGeneratedSpeed(float generatedSpeed) {
+        this.generatedSpeed = generatedSpeed;
+    }
+
+    public void setStressCapacity(float stressCapacity) {
+        this.stressCapacity = stressCapacity;
+    }
+
+    public void setStressImpact(float stressImpact) {
+        this.stressImpact = stressImpact;
+    }
+
+    @Override
+    public float calculateAddedStressCapacity() {
+        return this.stressCapacity;
+    }
+
+    @Override
+    public float calculateStressApplied() {
+        return this.stressImpact;
+    }
+
+    @Override
+    public void sendData() {
+        if(this.level != null && !this.level.isClientSide()) {
+            CompoundTag nbt = this.writeClient(new CompoundTag(), this.level.registryAccess());
+            nbt.putFloat("cm_generated_speed", this.generatedSpeed);
+            nbt.putFloat("cm_stress_capacity", this.stressCapacity);
+            nbt.putFloat("cm_stress_impact", this.stressImpact);
+            PacketDistributor.sendToPlayersInDimension((ServerLevel)this.level, new SUpdateFakeKineticTilePacket(this.worldPosition, nbt));
+        }
+    }
+
+    @Override
+    public float getGeneratedSpeed() {
+        return this.generatedSpeed;
+    }
+}
