@@ -11,6 +11,7 @@
     "KineticNetworkMixin",
     "KineticTileEntityMixin",
     "KubeJSIntegrationMixin",
+    "MachineJSMixin",
     "MachineTileMixin",
     "RotationPropagatorMixin"
   ],
