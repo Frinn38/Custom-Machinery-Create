@@ -114,7 +114,7 @@ configurations {
 repositories {
     maven {
         name = "Frinn's maven"
-        url = 'https://maven.frinn.fr/repository/maven/'
+        url = 'https://maven.frinn.fr/releases'
         content {
             includeGroup "frinn.custommachinery"
         }
@@ -128,7 +128,7 @@ repositories {
     }
     maven {
         name = "Lat's maven"
-        url = "https://maven.saps.dev/releases"
+        url = "https://maven.latvian.dev/releases"
         content {
             includeGroup "dev.latvian.mods"
             includeGroup "dev.latvian.apps"
