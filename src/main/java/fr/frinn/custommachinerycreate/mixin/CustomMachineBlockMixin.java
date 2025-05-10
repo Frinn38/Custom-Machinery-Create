@@ -20,7 +20,7 @@ public abstract class CustomMachineBlockMixin implements IRotate {
         return Optional.ofNullable(world.getBlockEntity(pos))
                 .filter(be -> be instanceof MachineTile)
                 .flatMap(be -> ((MachineTile) be).getComponentManager().getComponent(Registration.CONTRAPTION_MACHINE_COMPONENT.get()))
-                .map(component -> !component.getConfig().getSideMode(face).isDisabled())
+                .map(component -> !component.getConfig().getDirectionMode(face).isDisabled())
                 .orElse(false);
     }
 
