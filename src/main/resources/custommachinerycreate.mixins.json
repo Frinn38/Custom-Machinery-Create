@@ -8,8 +8,8 @@
   "mixins": [
     "CustomMachineBlockMixin",
     "GeneratingKineticBlockEntityMixin",
+    "KineticBlockEntityMixin",
     "KineticNetworkMixin",
-    "KineticTileEntityMixin",
     "KubeJSIntegrationMixin",
     "MachineJSMixin",
     "MachineTileMixin",
@@ -17,5 +17,8 @@
   ],
   "injectors": {
     "defaultRequire": 1
+  },
+  "mixinextras": {
+    "minVersion": "0.5.0"
   }
 }

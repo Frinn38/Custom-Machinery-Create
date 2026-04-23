@@ -17,12 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = CustomMachineryCreate.MODID, bus = Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CustomMachineryCreate.MODID, value = Dist.CLIENT)
 public class ClientEvents {
 
     @SubscribeEvent

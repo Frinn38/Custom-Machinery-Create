@@ -144,6 +144,38 @@ repositories {
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://mvn.devos.one/snapshots" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
+
+    maven { //Simulated, Sable
+        name = "RyanHCode Maven"
+        url = "https://maven.ryanhcode.dev/releases"
+        content {
+            includeGroup "dev.simulated_team.simulated"
+            includeGroup "dev.ryanhcode.sable"
+            includeGroup "dev.ryanhcode.sable-companion"
+        }
+    }
+
+    maven { //Curios, needed for Simulated
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+
+    maven { //Veil, needed for Simulated
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+
+    maven { //Modrinth, needed for natures-compass
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven { //CC-tweaked, needed for Simulated
+        url "https://maven.squiddev.cc"
+        content {
+            includeGroup("cc.tweaked")
+        }
+    }
 }
 
 dependencies {
@@ -159,10 +191,12 @@ dependencies {
 
     //Create and dependencies
     implementation("com.simibubi.create:create-${minecraft_version}:${create_version}-${create_build}:slim") { transitive = false }
-    implementation("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}")
+    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    localRuntime compileOnly("dev.simulated_team.simulated:simulated-neoforge-1.21.1:1.1.0")
 }
 
 processResources {
