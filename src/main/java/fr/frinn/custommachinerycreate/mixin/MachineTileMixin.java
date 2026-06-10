@@ -3,24 +3,19 @@ package fr.frinn.custommachinerycreate.mixin;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.api.schematic.nbt.PartialSafeNBT;
-import com.simibubi.create.api.schematic.requirement.SpecialBlockEntityItemRequirement;
-import com.simibubi.create.content.schematics.requirement.ItemRequirement;
-import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 import fr.frinn.custommachinery.api.machine.ICustomMachine;
 import fr.frinn.custommachinery.api.machine.MachineTile;
-import fr.frinn.custommachinery.common.init.CustomMachineItem;
 import fr.frinn.custommachinerycreate.Registration;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
 @Mixin(MachineTile.class)
-public abstract class MachineTileMixin implements IHaveGoggleInformation, IHaveHoveringInformation, PartialSafeNBT, SpecialBlockEntityItemRequirement {
+public abstract class MachineTileMixin implements IHaveGoggleInformation, IHaveHoveringInformation, PartialSafeNBT {
 
     @Shadow(remap = false)
     public abstract ICustomMachine getMachine();
@@ -44,10 +39,5 @@ public abstract class MachineTileMixin implements IHaveGoggleInformation, IHaveH
     @Override
     public void writeSafe(CompoundTag nbt, HolderLookup.Provider registries) {
         nbt.putString("machineID", this.getMachine().getId().toString());
-    }
-
-    @Override
-    public ItemRequirement getRequiredItems(BlockState state) {
-        return new ItemRequirement(new ItemRequirement.StrictNbtStackRequirement(CustomMachineItem.makeMachineItem(this.getMachine().getId()), ItemUseType.CONSUME));
     }
 }
