@@ -4,6 +4,7 @@
 
   "custommachinery.machine.component.contraption": "Contraption",
 
+  "custommachinerycreate.requirement.blazeburner.info": "Heat required: %s",
   "custommachinerycreate.requirement.contraption.info.speed.input": "Required speed: %s RPM",
   "custommachinerycreate.requirement.contraption.info.speed.output": "Output speed: %s RPM",
   "custommachinerycreate.requirement.contraption.info.stress.input": "Stress impact: %sx RPM",

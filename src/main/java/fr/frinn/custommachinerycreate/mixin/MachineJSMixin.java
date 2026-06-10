@@ -1,8 +1,10 @@
 package fr.frinn.custommachinerycreate.mixin;
 
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import fr.frinn.custommachinery.common.init.CustomMachineTile;
 import fr.frinn.custommachinery.common.integration.kubejs.function.MachineJS;
 import fr.frinn.custommachinerycreate.Registration;
+import fr.frinn.custommachinerycreate.components.BlazeBurnerComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,6 +15,14 @@ public class MachineJSMixin {
     @Final
     @Shadow(remap = false)
     private CustomMachineTile internal;
+
+    /** BLAZE BURNER **/
+
+    public HeatLevel getBlazeBurnerHeat() {
+        return this.internal.getComponentManager().getComponent(Registration.BLAZE_BURNER_MACHINE_COMPONENT.get())
+                .map(BlazeBurnerComponent::getHeatLevel)
+                .orElse(HeatLevel.NONE);
+    }
 
     /** STRESS **/
 
