@@ -33,11 +33,10 @@ public class ContraptionMachineComponent extends AbstractMachineComponent implem
     public ContraptionMachineComponent(IMachineComponentManager manager, float baseStressImpact, ToggleSideConfig.Template config) {
         super(manager, ComponentIOMode.BOTH);
         this.baseStressImpact = baseStressImpact;
-        this.config = config.build(this);
+        this.config = config.build(manager.facing());
         BlockEntity be = manager.getTile();
         this.fakeTile = new FakeGeneratingKineticBlockEntity(be.getType(), be.getBlockPos(), be.getBlockState(), this);
-        if(manager.getLevel() != null)
-            this.fakeTile.setLevel(manager.getLevel());
+        this.fakeTile.setLevel(manager.getLevel());
         this.fakeTile.reActivateSource = true;
     }
 
