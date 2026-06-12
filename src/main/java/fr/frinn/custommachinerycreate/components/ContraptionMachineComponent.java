@@ -36,7 +36,6 @@ public class ContraptionMachineComponent extends AbstractMachineComponent implem
         this.config = config.build(manager.facing());
         BlockEntity be = manager.getTile();
         this.fakeTile = new FakeGeneratingKineticBlockEntity(be.getType(), be.getBlockPos(), be.getBlockState(), this);
-        this.fakeTile.setLevel(manager.getLevel());
         this.fakeTile.reActivateSource = true;
     }
 
